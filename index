@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="//widget.manychat.com/1841096049550776.js" async="async">
+</script>
+
+	<title>Berlin Spikers</title>
+
+	<style>
+		*{padding: 0; margin: 0;}
+		canvas {margin: 0, auto;}
+
+		.wrapper {
+		    position: relative;
+		    margin-left: auto;
+		    margin-right: auto;
+		}
+
+		.wrapper canvas {
+		    position: absolute;
+		    top: 0;
+		    left: 0;
+		}
+
+	</style>
+</head>
+
+<body>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+	  <div class="container-fluid">
+	    <div class="navbar-header">
+	      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>                        
+	      </button>
+	      <a class="navbar-brand" href="#">Berlin Spikeball</a>
+	    </div>
+	    <div class="collapse navbar-collapse" id="myNavbar">
+	      <ul class="nav navbar-nav navbar-right">
+	        <li><a href="#myPage">HOME</a></li>
+	        <li><a href="#band">PLAY NOW</a></li>
+	        <li><a href="#tour">CONNECT</a></li>
+	        <li><a href="#contact">CONTACT</a></li>
+	        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        	<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+	      </ul>
+	    </div>
+	  </div>
+	</nav>
+	<div class="wrapper">
+		<canvas id="spike" width="480" height="320"></canvas>
+		<canvas id="background" width="480" height="320"></canvas>
+	</div>
+
+	<script>
+		var canvas = document.getElementById("spike");
+		var ctx = canvas.getContext("2d");
+
+		var back = document.getElementById("background");
+    	var bctx = back.getContext("2d");
+
+    	var background = new Image();
+		background.addEventListener('load', function() {
+		  // execute drawImage statements here
+		  // bctx.drawImage(background,0,0);
+		}, false);
+		background.src = "spikeballnet.jpeg"; 
+
+    	var background = new Image();
+		background.src = "spikeballnet.jpeg"; 
+
+		var ball = 50;
+		var x = canvas.width;
+		var y = canvas.height/2;
+		var dx = -2;
+		var dy = 2;
+		
+		var netWidth = 100;
+		var netHeight = 10;
+		var netX = (canvas.width-netWidth)/2;
+		var netY = canvas.height-netHeight;
+
+		function drawBall() {
+			ctx.beginPath();
+			ctx.arc(x, y, ball, 0, Math.PI*2);
+			ctx.fillStyle = "#FFFF00";
+			ctx.fill();
+			ctx.closePath();
+		}
+
+		function draw() {
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+			ctx.drawImage(background,0,0);
+			drawBall();
+
+			x += dx;
+			y += dy;
+
+			if (y == canvas.height) {
+				dy = -dy;
+			}
+			requestAnimationFrame(draw);
+		}
+
+
+		draw();
+	</script>
+</body>
+</html>
